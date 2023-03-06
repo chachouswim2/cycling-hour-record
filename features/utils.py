@@ -6,9 +6,6 @@ from benedict import benedict as bdict
 from ipyleaflet import Map, Polyline
 from datetime import datetime, timedelta, time
 import dateutil.parser as dparser
-import requests
-import pickle
-import gzip
 import shutil
 from sklearn import preprocessing
 from matplotlib.axes._axes import _log as matplotlib_axes_logger
@@ -21,6 +18,8 @@ activityPath = filepath + "activities/"
 activitycsvPath = filepath + "activities_csv/"
 activityOutputPath = fileOutputPath + "activities/"
 
+
+################################################## PREPROCESS DATA AND LOAD ###############################################
 def preprocess_date_column(data):
     # Extract the date and time in two columns
     data[['Date', 'Time']] = data['Date de l\'activité'].str.split('à', expand=True)
@@ -48,8 +47,11 @@ def preprocess_date_column(data):
 def loadData():
     df = pd.read_csv(filepath + 'activities.csv')
     data = df[df.columns[[0, 1, 2, 3, 4, 5, 8, 11, 12, 13, 14, 16, 17, 18, 19,
-                          20, 21, 22, 23, 24, 25, 28, 29, 31, 33, 34, 36, 46, 47,
+                          20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 33, 34, 36, 46, 47,
                           59, 61, 72, 74]]]
+
+    #Rename#Convert distance to km
+    data = data.rename(columns={"Fréquence cardiaque maximum.1": "Fréquence cardiaque maximum"})
 
     #Convert distance to km
     data = data.rename(columns={"Distance.1": "Distance"})
@@ -72,3 +74,29 @@ def loadData():
     rideData = data[data["Type d'activité"].isin(rideTypes)]
 
     return rideData
+
+################################################## DATA SUBSET ########################################################
+
+def create_sub_df(df):
+     """
+    Create a subset of the main activities data frame, dropping the Nan and keeping important columns.
+
+    Args:
+        df: activities dataset.
+
+    Returns:
+        sub_df: subset data frame
+    """
+     
+     sub_df = df[["Date", "Time", "Nom du fichier", "Durée de déplacement", "Distance", "Fréquence cardiaque moyenne", 
+                  "Fréquence cardiaque maximum", "Vitesse moyenne", "Cadence moyenne", "Puissance moyenne", 
+                  "Poids de l'athlète", "Mesure d'effort", "Puissance moyenne pondérée"]]
+     
+     # Drop the rows where "Fréquence cardiaque moyenne" is NaN
+     sub_df = sub_df.dropna(subset=['Fréquence cardiaque moyenne'])
+
+     sub_df['Puissance moyenne pondérée'] = sub_df['Puissance moyenne pondérée'].astype(float)
+
+     return sub_df
+
+
