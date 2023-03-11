@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TrainingCenterDatabase xmlns:ns2="http://www.garmin.com/xmlschemas/UserProfile/v2" xmlns:ns3="http://www.garmin.com/xmlschemas/ActivityExtension/v2" xmlns:ns4="http://www.garmin.com/xmlschemas/ProfileExtension/v1" xmlns:ns5="http://www.garmin.com/xmlschemas/ActivityGoals/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2" xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd">
+            <Activities>
+              <Activity Sport="Bike">
+      <Id>2022-02-25T12:00:00Z</Id>
+      <Lap StartTime="2022-02-25T12:00:00Z">
+        <TotalTimeSeconds>300</TotalTimeSeconds>
+        <DistanceMeters>1000</DistanceMeters>
+        <MaximumSpeed>0.0</MaximumSpeed>
+        <Calories>0</Calories>
+        <AverageHeartRateBpm>
+          <Value>110</Value>
+        </AverageHeartRateBpm>
+        <MaximumHeartRateBpm>
+          <Value>110</Value>
+        </MaximumHeartRateBpm>
+        <Intensity>Active</Intensity>
+        <TriggerMethod>Manual</TriggerMethod>
+        <Track>
+          
+            <Trackpoint>
+                <Time>2022-02-25T12:00:00Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>0</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:00:30Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>100</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:01:00Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>200</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:01:30Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>300</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:02:00Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>400</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:02:30Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>500</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:03:00Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>600</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:03:30Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>700</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:04:00Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>800</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:04:30Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>900</DistanceMeters>
+            </Trackpoint>
+    
+            <Trackpoint>
+                <Time>2022-02-25T12:05:00Z</Time>
+                <Position>
+                    <LatitudeDegrees>43.7015550</LatitudeDegrees>
+                    <LongitudeDegrees>5.6726370</LongitudeDegrees>
+                </Position>
+                <HeartRateBpm>
+                    <Value>110</Value>
+                </HeartRateBpm>
+                <DistanceMeters>1000</DistanceMeters>
+            </Trackpoint>
+    
+        </Track>
+      </Lap>
+    </Activity>
+            </Activities>
+            
+          </TrainingCenterDatabase>

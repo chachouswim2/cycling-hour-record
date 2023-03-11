@@ -69,9 +69,14 @@ def calculate_time_in_zones(df, hr_data):
     # Loop through the rows in df and calculate time spent in each zone for the corresponding activity
     for index, row in df.iterrows():    
     # Extract activity id from the file name column
-        activity_num = str(row["Nom du fichier"]).split("/")[-1].split(".")[0]
-        # Load the activity data
-        activity_file = f"data/activities_csv/{activity_num}.csv"
+        if "Nom du fichier" in row:
+            activity_num = str(row["Nom du fichier"]).split("/")[-1].split(".")[0]
+            # Load the activity data
+            activity_file = f"data/activities_csv/{activity_num}.csv"
+        else:
+            activity_num = row['nom']
+            activity_file = f"data/strava_test_csv/{activity_num}.csv"
+            
         csv_data = pd.read_csv(activity_file)
         csv_data = csv_data[['timestamp', 'heart_rate']]
 

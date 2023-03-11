@@ -122,8 +122,8 @@ def read_fit_files(directory):
 
                 # Get the activity id from the activities CSV file
                 filename = os.path.splitext(file)[0]
-                df_activities_na = df_activities.dropna(subset=['Nom du fichier'])
-                match = df_activities_na.loc[df_activities_na['Nom du fichier'].str.contains(filename)]
+                df_activities = df_activities.dropna(subset=['Nom du fichier'])
+                match = df_activities.loc[df_activities['Nom du fichier'].str.contains(filename)]
                 if match.empty:
                     activity_id = None
                 else:
@@ -201,9 +201,55 @@ def convert_tcx_to_csv_with_activity_id(tcx_directory, activities_file, csv_dire
 
             # Get activity id
             filename = file_name.replace(".gz", "")
-            df_activities_na = df_activities.dropna(subset=['Nom du fichier'])
-            match = df_activities_na.loc[df_activities_na["Nom du fichier"].str.contains(filename)]
+            df_activities = df_activities.dropna(subset=['Nom du fichier'])
+            match = df_activities.loc[df_activities["Nom du fichier"].str.contains(filename)]
             activity_id = match["ID de l'activité"].values[0]
+
+            # Append activity id to DataFrame
+            df["activity_id"] = activity_id
+
+            # Save DataFrame to CSV file
+            csv_filename = file_name.replace(".tcx", ".csv")
+            csv_location = os.path.join(csv_directory, csv_filename)
+            df.to_csv(csv_location, index=False)
+
+def strava_test_tcx_csv(tcx_directory, activities_file, csv_directory):
+    """
+    Reads TCX files from a given directory, extracts data and appends the activity id, and saves the data as CSV file
+    for each activity in the directory.
+    
+    :param tcx_directory: Directory containing TCX files
+    :param activities_file: CSV file containing activity data
+    :param csv_directory: Directory to save CSV files
+    """
+    
+    # Load activities file
+    df_activities = pd.read_csv(activities_file)
+    
+    # Iterate over TCX files in directory
+    for file_name in os.listdir(tcx_directory):
+        if file_name.endswith(".tcx"):
+            # Create file path
+            file_location = os.path.join(tcx_directory, file_name)
+            
+            # Read data from TCX file
+            tcx_reader = TCXReader()
+            data = tcx_reader.read(file_location)
+
+            # Extract data to DataFrame
+            df = pd.DataFrame({
+                "time": [tp.time for tp in data.trackpoints],
+                "altitude_meters": [tp.elevation for tp in data.trackpoints],
+                "distance_meters": [tp.distance for tp in data.trackpoints],
+                "heart_rate_bpm": [tp.hr_value for tp in data.trackpoints],
+                "cadence_rpm": [tp.cadence for tp in data.trackpoints],
+                "speed_mps": [tp.tpx_ext.get('Speed', None) for tp in data.trackpoints]
+            })
+
+            # Get activity id
+            df_activities['name_tcx'] = df_activities['name'] + '.tcx'
+            match = df_activities.loc[df_activities["name_tcx"].str.contains(file_name)]
+            activity_id = match["id"].values[0]
 
             # Append activity id to DataFrame
             df["activity_id"] = activity_id
