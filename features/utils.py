@@ -87,15 +87,18 @@ def create_sub_df(df):
     Returns:
         sub_df: subset data frame
     """
-     
      sub_df = df[["Date", "Time", "Nom du fichier", "Durée de déplacement", "Distance", "Fréquence cardiaque moyenne", 
                   "Fréquence cardiaque maximum", "Vitesse moyenne", "Cadence moyenne", "Puissance moyenne", 
                   "Poids de l'athlète", "Mesure d'effort", "Puissance moyenne pondérée"]]
      
-     # Drop the rows where "Fréquence cardiaque moyenne" is NaN
+    # Drop the rows where "Fréquence cardiaque moyenne" is NaN
      sub_df = sub_df.dropna(subset=['Fréquence cardiaque moyenne'])
 
      sub_df['Puissance moyenne pondérée'] = sub_df['Puissance moyenne pondérée'].astype(float)
+     
+     sub_df = sub_df.reset_index(drop=True)
+     
+     sub_df['Date'] = pd.to_datetime(sub_df['Date'])
 
      return sub_df
 
