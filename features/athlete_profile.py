@@ -63,6 +63,35 @@ def calculate_hr_zones_RE(hrmax):
 
     return zones_df
 
+def calculate_hr_zones_elevate(hrmax):
+    """
+    Calculates heart rate zones using the percentage of HRmax method based on Strava findings
+
+    Args:
+        hrmax (int): Maximum heart rate.
+
+    Returns:
+        pandas.DataFrame: Heart rate zones, including zone number, zone name,
+                           and heart rate range for each zone.
+    """
+
+    zone_ranges = [0.50, 0.6, 0.7, 0.8, 0.9, 1.0]
+    zone_names = ['Endurance', 'Moderate', 'Tempo', 'Threshold', 'Anaerobic', 'Max']
+    hr_zones = []
+    for i, zone_range in enumerate(zone_ranges):
+        lower_range = zone_ranges[i] * hrmax
+        upper_range = zone_ranges[i+1] * hrmax if i+1 < len(zone_ranges) else float("inf")
+        if i == 0:
+            hr_range = f'< {upper_range:.0f}'
+        elif i == 5:
+            hr_range = f'>{lower_range:.0f}'
+        else:
+            hr_range = f'{lower_range:.0f} - {upper_range:.0f}'
+        hr_zones.append((i+1, zone_names[i], round(lower_range,0), round(upper_range,0), hr_range))
+    zones_df = pd.DataFrame(hr_zones, columns=['Zone', 'Name', 'Lower Bound', 'Upper Bound', 'Range'])
+
+    return zones_df
+
 
 ############################################## INTENSITY SCORE #######################################################
 

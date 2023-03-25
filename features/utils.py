@@ -102,4 +102,160 @@ def create_sub_df(df):
 
      return sub_df
 
+############################################################### LAURENT SPEED ZONES #############################################################
+speed = {
+        "Z1": (0, 10),
+        "Z2": (10, 15),
+        "Z3": (15, 20),
+        "Z4": (20, 25),
+        "Z5": (25, 27),
+        "Z6": (27, 30),
+        "Z7": (30, 32),
+        "Z8": (32, 34),
+        "Z9": (34, 36),
+        "Z10": (36, 38),
+        "Z11": (38, 40),
+        "Z12": (40, 42),
+        "Z13": (42, 44),
+        "Z14": (44, 47),
+        "Z15": (47, 50),
+        "Z16": (50, 60),
+        "Z17": (60, 75)
+}
 
+# create a DataFrame with the zone names, lower and upper bounds
+speed_zones_df = pd.DataFrame(speed.items(), columns=['zone', 'bounds'])
+speed_zones_df[['lower', 'upper']] = pd.DataFrame(speed_zones_df['bounds'].tolist(), index=speed_zones_df.index)
+speed_zones_df = speed_zones_df.drop('bounds', axis=1)
+
+
+############################################################### LAURENT POWER ZONES #############################################################
+power = {
+        "Z1": (0, 50),
+        "Z2": (50, 100),
+        "Z3": (100, 150),
+        "Z4": (150, 175),
+        "Z5": (175, 200),
+        "Z6": (200, 225),
+        "Z7": (225, 250),
+        "Z8": (250, 300),
+        "Z9": (300, 325),
+        "Z10": (325, 350),
+        "Z11": (350, 375),
+        "Z12": (375, 400),
+        "Z13": (400, 425),
+        "Z14": (425, 450),
+        "Z15": (450, 475),
+        "Z16": (475, 500),
+        "Z17": (500, 600),
+        "Z18": (600, 800),
+        "Z19": (800, 1500)
+}
+
+# create a DataFrame with the zone names, lower and upper bounds
+power_zones_df = pd.DataFrame(power.items(), columns=['zone', 'bounds'])
+power_zones_df[['lower', 'upper']] = pd.DataFrame(power_zones_df['bounds'].tolist(), index=power_zones_df.index)
+power_zones_df = power_zones_df.drop('bounds', axis=1)
+
+############################################################ CADENCE ZONES #######################################################################
+
+cadence = {
+        "Z1": (0, 5),
+        "Z2": (5, 10),
+        "Z3": (10, 15),
+        "Z4": (15, 20),
+        "Z5": (20, 25),
+        "Z6": (25, 30),
+        "Z7": (30, 35),
+        "Z8": (35, 40),
+        "Z9": (40, 45),
+        "Z10": (45, 50),
+        "Z11": (50, 55),
+        "Z12": (55, 60),
+        "Z13": (60, 65),
+        "Z14": (65, 70),
+        "Z15": (70, 75),
+        "Z16": (75, 80),
+        "Z17": (80, 85),
+        "Z18": (85, 90),
+        "Z19": (90, 95),
+        "Z20": (95, 100),
+        "Z21": (100, 105),
+        "Z22": (105, 110),
+        "Z23": (110, 115),
+        "Z24": (115, 125),
+        "Z25": (125, 150)
+}
+
+# create a DataFrame with the zone names, lower and upper bounds
+cadence_zones_df = pd.DataFrame(cadence.items(), columns=['zone', 'bounds'])
+cadence_zones_df[['lower', 'upper']] = pd.DataFrame(cadence_zones_df['bounds'].tolist(), index=cadence_zones_df.index)
+cadence_zones_df = cadence_zones_df.drop('bounds', axis=1)
+
+################################################# GRADE ZONE ################################
+
+grade = {
+        "Z1": (-20, -17),
+        "Z2": (-17, -14),
+        "Z3": (-14, -12),
+        "Z4": (-12, -9),
+        "Z5": (-9, -6),
+        "Z6": (-6, -3),
+        "Z7": (-3, -2),
+        "Z8": (-2, -1),
+        "Z9": (-1, -0.5),
+        "Z10": (-0.5, 0.5),
+        "Z11": (0.5, 1),
+        "Z12": (1, 2),
+        "Z13": (2, 3),
+        "Z14": (3, 4),
+        "Z15": (4, 5),
+        "Z16": (5, 6),
+        "Z17": (6, 7),
+        "Z18": (7, 8),
+        "Z19": (8, 9),
+        "Z20": (9, 10),
+        "Z21": (10, 11),
+        "Z22": (11, 12),
+        "Z23": (12, 13),
+        "Z24": (13, 14),
+        "Z25": (14, 15),
+        "Z26": (15, 16),
+        "Z27": (16, 17),
+        "Z28": (17, 18),
+        "Z29": (18, 20),
+        "Z30": (20, 25)
+}
+
+# create a DataFrame with the zone names, lower and upper bounds
+grade_zones_df = pd.DataFrame(grade.items(), columns=['zone', 'bounds'])
+grade_zones_df[['lower', 'upper']] = pd.DataFrame(grade_zones_df['bounds'].tolist(), index=grade_zones_df.index)
+grade_zones_df = grade_zones_df.drop('bounds', axis=1)
+
+############################################ ELEVATION ZONE #############################
+
+elevation = {
+        "Z1": (0, 100),
+        "Z2": (100, 200),
+        "Z3": (200, 300),
+        "Z4": (300, 400),
+        "Z5": (400, 500),
+        "Z6": (500, 600),
+        "Z7": (600, 700),
+        "Z8": (700, 800),
+        "Z9": (800, 900),
+        "Z10": (900, 1000),
+        "Z11": (1000, 1500),
+        "Z12": (1500, 2000),
+        "Z13": (2000, 2500),
+        "Z14": (2500, 3000),
+        "Z15": (3000, 3500),
+        "Z16": (3500, 4000),
+        "Z17": (4000, 5000)
+}
+
+# create a DataFrame with the zone names, lower and upper bounds
+elevation_zones_df = pd.DataFrame(elevation.items(), columns=['zone', 'bounds'])
+elevation_zones_df[['lower', 'upper']] = pd.DataFrame(elevation_zones_df['bounds'].tolist(), index=elevation_zones_df.index)
+elevation_zones_df = elevation_zones_df.drop('bounds', axis=1)
+elevation_zones_df
