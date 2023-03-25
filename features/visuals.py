@@ -31,35 +31,42 @@ def activity_dive_in_dataset(zone_df, athlete_df, date):
     Returns:
         visual_df: visual data frame
     """
+
     df_act = loadData()
-    df_act = df_act[df_act['Date'] == date]
     df_zone = pd.read_csv(zone_df, index_col='Unnamed: 0')
-    df_zone = df_zone[df_zone['Date'] == date]
     df_athlete = pd.read_csv(athlete_df, index_col='Unnamed: 0')
+
+    df_act = df_act[df_act['Date'] == date]
+    df_zone = df_zone[df_zone['Date'] == date]
     df_athlete = df_athlete[df_athlete['Date'] == date]
 
-    ### Merge
-    df_activity_visual = df_zone.merge(df_act[['Nom du fichier', 'Temps écoulé', 'Dénivelé positif', 'Dénivelé négatif', 'Altitude min.',
-       'Altitude max.', 'Pente max.', 'Pente moyenne', 'Cadence max.']], how='left', on=['Nom du fichier'])
-    df_activity_visual = df_activity_visual.merge(df_athlete[['Nom du fichier', 'new_relative_effort', 'TSS', 'HRR', 'trimp', 'HRSS',
-       'Fitness', 'Fitness Diff', 'Fatigue', 'Fatigue Diff', 'Form']], how='left', on=['Nom du fichier'])
-    
-    #Get matching csv
-    for index, row in df_activity_visual.iterrows():
+    #check that date exists
+    if df_act.empty:
+        print(f"Date {date} not found in activity data.")
+        return
+    else:
+        ### Merge
+        df_activity_visual = df_zone.merge(df_act[['Nom du fichier', 'Temps écoulé', 'Dénivelé positif', 'Dénivelé négatif', 'Altitude min.',
+        'Altitude max.', 'Pente max.', 'Pente moyenne', 'Cadence max.']], how='left', on=['Nom du fichier'])
+        df_activity_visual = df_activity_visual.merge(df_athlete[['Nom du fichier', 'new_relative_effort', 'TSS', 'HRR', 'trimp', 'HRSS',
+        'Fitness', 'Fitness Diff', 'Fatigue', 'Fatigue Diff', 'Form']], how='left', on=['Nom du fichier'])
         
-        # Extract activity id from the file name column
-        if "Nom du fichier" in row:
-            activity_num = str(row["Nom du fichier"]).split("/")[-1].split(".")[0]
-            # Load the activity data
-            activity_file = f"data/activities_csv/{activity_num}.csv"
-        else:
-            activity_num = row['nom']
-            activity_file = f"data/activities_csv/{activity_num}.csv"
+        #Get matching csv
+        for index, row in df_activity_visual.iterrows():
             
-        csv_data = pd.read_csv(activity_file)
-        csv_data['enhanced_speed'] = csv_data['enhanced_speed']*3.6
-    
-    return df_activity_visual, csv_data
+            # Extract activity id from the file name column
+            if "Nom du fichier" in row:
+                activity_num = str(row["Nom du fichier"]).split("/")[-1].split(".")[0]
+                # Load the activity data
+                activity_file = f"data/activities_csv/{activity_num}.csv"
+            else:
+                activity_num = row['nom']
+                activity_file = f"data/activities_csv/{activity_num}.csv"
+                
+            csv_data = pd.read_csv(activity_file)
+            csv_data['enhanced_speed'] = csv_data['enhanced_speed']*3.6
+        
+        return df_activity_visual, csv_data
 
 ########################################################### HEART RATE ZONES ####################################################################
 
