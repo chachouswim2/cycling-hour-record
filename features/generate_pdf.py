@@ -108,23 +108,42 @@ def generate_activity_pdf(date="2023-02-18", saving_name ='activity_metrics.pdf'
         c.drawString(30 + metric_width * i, 720, metrics[i])
         c.setFont('Helvetica-Bold', 12)
         c.drawString(30 + metric_width * i, 740, str(values[i]))
+    
+    ########################################## MAP ####################################################
+    activity_map = plot_map(data)
+    # Save plot as PNG file
+    pio.write_image(activity_map, 'visuals/activity_map.png', width=1000, height=600)
+
+    # Draw image on canvas
+    c.drawImage('visuals/activity_map.png', x=40, y=350, width=7*inch, height=4.08*inch)
+
+    elevation_profile_fig = plot_elevation_profile(data)
+    # Save plot as PNG file
+    pio.write_image(elevation_profile_fig, 'visuals/elevation_profile_plot.png', width=1200, height=400)
+
+    # Draw image on canvas
+    c.drawImage('visuals/elevation_profile_plot.png', x=40, y=60, width=7*inch, height=3.08*inch)
+
 
     ################################### HEAR RATE ###############################################
+    # Start a new page
+    c.showPage()
+
     hr_fig = plot_hr_zones(df_activity_visual, 190)
     # Save plot as PNG file
     pio.write_image(hr_fig, 'visuals/hr_plot.png', width=1000, height=400)
 
     # Draw a rectangle
     c.setFillColorRGB(255/255, 216/255, 177/255) # set fill color to light orange
-    c.rect(30, 650, total_width, 30, fill=True, stroke=False)
+    c.rect(30, 790, total_width, 30, fill=True, stroke=False)
 
     # Add text on top of the rectangle
     c.setFont('Helvetica-Bold', 14)
     c.setFillColorRGB(0, 0, 0) # set text color to orange
-    c.drawString(left_margin, 658, 'Heart Rate')
+    c.drawString(left_margin, 798, 'Heart Rate')
 
     # Draw image on canvas
-    c.drawImage('visuals/hr_plot.png', x=60, y=425, width=7*inch, height=3.08*inch)
+    c.drawImage('visuals/hr_plot.png', x=60, y=530, width=7*inch, height=3.08*inch)
 
     # write the HRSS, HRSS per hour, and average HRR
     HRSS = df_activity_visual['HRSS'][0]
@@ -143,37 +162,37 @@ def generate_activity_pdf(date="2023-02-18", saving_name ='activity_metrics.pdf'
 
     #Write the HRSS, HRSS per hour, and average HRR
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30, 400, 'HRSS:')
+    c.drawString(30, 450, 'HRSS:')
     c.setFont('Helvetica', 10)
-    c.drawString(30, 385, str(HRSS))
+    c.drawString(30, 435, str(HRSS))
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30+metric_width4, 400, 'HRSS/h:')
+    c.drawString(30+metric_width4, 450, 'HRSS/h:')
     c.setFont('Helvetica', 10)
-    c.drawString(30+metric_width4, 385, str(HRSS_per_hour))
+    c.drawString(30+metric_width4, 435, str(HRSS_per_hour))
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30+metric_width4*2, 400, 'Avg HRR:')
+    c.drawString(30+metric_width4*2, 450, 'Avg HRR:')
     c.setFont('Helvetica', 10)
-    c.drawString(30+metric_width4*2, 385, str(HRR))
+    c.drawString(30+metric_width4*2, 435, str(HRR))
 
     # Write the TRIMP and TRIMP per hour
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30, 370, 'TRIMP:')
+    c.drawString(30, 420, 'TRIMP:')
     c.setFont('Helvetica', 10)
-    c.drawString(30, 355, str(trimp))
+    c.drawString(30, 405, str(trimp))
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30+metric_width4, 370, 'TRIMP/h:')
+    c.drawString(30+metric_width4, 420, 'TRIMP/h:')
     c.setFont('Helvetica', 10)
-    c.drawString(30+metric_width4, 355, str(trimp_per_hour))
+    c.drawString(30+metric_width4, 405, str(trimp_per_hour))
 
     # Write the rolling mean heart rate for 20 and 60 minute windows
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30+metric_width4*2, 370, 'HR 20min:')
+    c.drawString(30+metric_width4*2, 420, 'HR 20min:')
     c.setFont('Helvetica', 10)
-    c.drawString(30+metric_width4*2, 355, str(round(hr_20min,0)))
+    c.drawString(30+metric_width4*2, 405, str(round(hr_20min,0)))
     c.setFont('Helvetica-Bold', 12)
-    c.drawString(30+metric_width4*3, 370, 'HR 60min:')
+    c.drawString(30+metric_width4*3, 420, 'HR 60min:')
     c.setFont('Helvetica', 10)
-    c.drawString(30+metric_width4*3, 355, str(round(hr_60min,0)))
+    c.drawString(30+metric_width4*3, 405, str(round(hr_60min,0)))
 
     ################################### SPEED ###############################################
     speed_fig = plot_speed_zones(df_activity_visual)
@@ -182,15 +201,15 @@ def generate_activity_pdf(date="2023-02-18", saving_name ='activity_metrics.pdf'
 
     # Draw a rectangle
     c.setFillColorRGB(175/255, 207/255, 255/255) # set fill color to light blue
-    c.rect(30, 310, total_width, 30, fill=True, stroke=False)
+    c.rect(30, 340, total_width, 30, fill=True, stroke=False)
 
     # Add text on top of the rectangle
     c.setFont('Helvetica-Bold', 14)
     c.setFillColorRGB(0, 0, 0) # set text color to orange
-    c.drawString(left_margin, 318, 'SPEED')
+    c.drawString(left_margin, 348, 'SPEED')
 
     # Draw image on canvas
-    c.drawImage('visuals/speed_plot.png', x=60, y=20, width=7*inch, height=3.08*inch)
+    c.drawImage('visuals/speed_plot.png', x=60, y=50, width=7*inch, height=3.08*inch)
 
     # Assuming the data is in a DataFrame called 'data' with a column 'enhanced_speed'
     speed_20min = data_rolling['enhanced_speed'].rolling('20min').mean().max()

@@ -68,6 +68,68 @@ def activity_dive_in_dataset(zone_df, athlete_df, date):
         
         return df_activity_visual, csv_data
 
+########################################################## MAP ################################################################################
+
+import pandas as pd
+import plotly.express as px
+
+# Define a function to convert fixed-point coordinates to latitude and longitude in degrees
+def fixed_to_degrees(value):
+    degrees = float(value) / ((2**32) / 360)
+    return degrees
+
+def plot_map(data_file):
+    """Plots latitude and longitude data from a CSV file on a map using Plotly Express.
+
+    Args:
+        data_file (str): The path to the CSV file containing the latitude and longitude data.
+
+    Returns:
+        None
+    """
+
+    # Read in the data from the CSV file
+    data_source = data_file
+    
+    # Check if latitude and longitude are in the columns
+    if 'latitude' in data_source.columns and 'longitude' in data_source.columns:
+        # If latitude and longitude are present, calculate the center point and plot the data using Plotly Express
+        center_lat = data_source['latitude'].mean()
+        center_lon = data_source['longitude'].mean()
+        fig = px.scatter_mapbox(data_source, 
+                                lat="latitude", 
+                                lon="longitude", 
+                                zoom=10,
+                                center=dict(lat=center_lat, lon=center_lon),
+                                height=800,
+                                width=800)
+        fig.update_layout(mapbox_style="open-street-map")
+        fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        
+    else:
+        # If latitude and longitude are not present, check if position_lat and position_long are in the columns
+        if 'position_lat' in data_source.columns and 'position_long' in data_source.columns:
+            # If position_lat and position_long are present, convert the values to degrees, calculate the center point, and plot the data
+            data_source['latitude'] = data_source['position_lat'].apply(lambda x: fixed_to_degrees(x))
+            data_source['longitude'] = data_source['position_long'].apply(lambda x: fixed_to_degrees(x))
+            center_lat = data_source['latitude'].mean()
+            center_lon = data_source['longitude'].mean()
+            fig = px.scatter_mapbox(data_source, 
+                                    lat="latitude", 
+                                    lon="longitude", 
+                                    zoom=10,
+                                    center=dict(lat=center_lat, lon=center_lon),
+                                    height=800,
+                                    width=800)
+            fig.update_layout(mapbox_style="open-street-map")
+            fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+            
+        else:
+            # If latitude, longitude, position_lat, and position_long are not present, print an error message
+            print('Error: latitude and longitude, or position_lat and position_long, columns not found in data')
+
+    return fig
+
 ########################################################### HEART RATE ZONES ####################################################################
 
 def plot_hr_zones(df_activity_visual, max_HR=190):
