@@ -198,7 +198,7 @@ def calculate_time_in_zones(df, hr_data):
 
 def calculate_time_in_zones_RE(df, hr_data):
     """
-    Calculate the time spent in each heart rate zone for each activity and add the results as columns.
+    Calculate the time spent in each heart rate zone for each activity and add the results as columns, useful for Coggan Model
     
     Args:
     - df (pandas.DataFrame): A DataFrame containing information about each activity.
